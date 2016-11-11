@@ -16,6 +16,7 @@ class SLang{
     public:
         explicit SLang(std::vector<std::string> commands);
         std::vector<std::string> splitIt(std::string);
+        std::vector<int> returnFinal();
         int next();
 
     private:

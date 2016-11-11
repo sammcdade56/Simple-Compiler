@@ -69,6 +69,13 @@ int SLang::next(){
     }
     return returnInt;
 }
-
-
-
+std::vector<int> SLang::returnFinal(){
+    vector<int> finalMLang;
+    size_t i =0;
+    while(mLangI[i]!=nullptr)
+    {
+        finalMLang.push_back(mLangI[i]);
+        i++;
+    }
+    return finalMLang;
+}
