@@ -15,7 +15,7 @@ int main()
     if (! fileVar ){
         cerr<<"File does not exist"<<endl;
     }
-
-
+   
+	
     return 0;
 }
