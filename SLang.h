@@ -10,17 +10,24 @@ Header for the SLang class
 #include <array>
 #include <vector>
 #include <tuple>
+#include <map>
 
 class SLang{
     public:
-        explicit SLang();
+        explicit SLang(std::vector<std::string> commands);
+        std::vector<std::string> splitIt(std::string);
+        int next();
 
     private:
-        std::vector<int> mLangI;//machine language instructions
-        int iIndex;//instruction index
+        std::array<int,100> mLangI;//machine language instructions
+        int miIndex;//machine instruction index
+        int siIndex;//instruction index
         int dIndex;//data index
         std::vector<std::string> errors;//errors
-        std:vector<std::tuple<int,std::string,std::string,int>
+        //std::vector<std::tuple<int,std::string,std::string,int>;
+        std::vector<std::string> instructions;
+        std::vector<std::string> rest;
+        std::map<char,int> variables;
 };
 #endif
 
