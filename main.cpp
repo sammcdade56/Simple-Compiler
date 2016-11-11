@@ -21,6 +21,9 @@ int main()
     while(repeatNum==0){
         repeatNum = s.next();
     }
-
+    vector<int> machine= s.returnFinal();
+    for(unsigned int i = 0; i<machine.size();++i){
+        cout<<machine[i]<<endl;
+    }
     return 0;
 }

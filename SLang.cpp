@@ -47,16 +47,19 @@ int SLang::next(){
     else if(instructions[siIndex] =="input"){
         mLangI[miIndex] = 1000+dIndex;
         siIndex++;
+        miIndex++;
         char var = rest[siIndex].at(0);
         variables.insert(pair<char,int>(var,dIndex));
     }
     else if(instructions[siIndex] =="end"){
+        mLangI[miIndex]=4300;
         returnInt =1;
     }
     else if(instructions[siIndex] =="print"){
         if (variables.count(rest[siIndex].at(0))==1){
             mLangI[miIndex] = 1100+variables[rest[siIndex].at(0)];
             siIndex++;
+            miIndex++;
         }
         else{
             cerr<<"can't print what doesn't exist"<<endl;
@@ -72,10 +75,10 @@ int SLang::next(){
 std::vector<int> SLang::returnFinal(){
     vector<int> finalMLang;
     size_t i =0;
-    while(mLangI[i]!=nullptr)
+    while(mLangI[i]!=0)
     {
-        finalMLang.push_back(mLangI[i]);
-        i++;
+       finalMLang.push_back(mLangI[i]);
+       i++;
     }
     return finalMLang;
 }
