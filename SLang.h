@@ -23,16 +23,16 @@ class SLang{
     private:
         std::array<int,100> mLangI;//machine language instructions
         int miIndex;//machine instruction index
-        int siIndex;//instruction index
+        int siIndex;//simple instruction index
         int dIndex;//data index
         std::vector<std::string> errors;//errors
         //std::vector<std::tuple<int,std::string,std::string,int>;
-        std::vector<int> lineNums;
-        std::vector<std::string> instructions;
-        std::vector<std::string> deets;
-        std::map<char,int> variables;
-        std::map<int,int> lineComp;//slang,mlang
-        std::vector<int> reCheck;
+        std::vector<int> lineNums;//this is the line numbers for the simple instructions
+        std::vector<std::string> instructions;//these are the simple instructions
+        std::vector<std::string> deets;//these are the important bits the simple instructions are done on
+        std::map<char,int> variables;//this is map of variables (x,y,l) to data index they are stored in the machine lang
+        std::map<int,int> lineComp;//map of slang line numbers to mlang index
+        std::vector<int> reCheck;//slang index of lines that need to gone over twice
 };
 #endif
 
