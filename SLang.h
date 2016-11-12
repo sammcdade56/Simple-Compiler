@@ -18,6 +18,11 @@ class SLang{
         std::vector<std::string> splitIt(std::string);
         std::vector<int> returnFinal();
         void secondRun();
+        int input();
+        int endIt();
+        int print();
+        int gotoIt(int,int);
+        int ifIt();
         int next();
 
     private:
@@ -32,7 +37,7 @@ class SLang{
         std::vector<std::string> deets;//these are the important bits the simple instructions are done on
         std::map<char,int> variables;//this is map of variables (x,y,l) to data index they are stored in the machine lang
         std::map<int,int> lineComp;//map of slang line numbers to mlang index
-        std::vector<int> reCheck;//slang index of lines that need to gone over twice
+        std::map<int,int> reCheck;//slang index,mlangindex of lines that need to gone over twice
 };
 #endif
 
