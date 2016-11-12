@@ -13,8 +13,9 @@ using namespace std;
 SLang::SLang(vector<string> commands){
     for(unsigned int i = 0; i<commands.size();++i){
         vector<string> split = splitIt(commands[i]);
-        instructions.push_back(split[0]);
-        rest.push_back(split[1]);
+        lineNums.push_back(stoi(split[0]));
+        instructions.push_back(split[1]);
+        deets.push_back(split[2]);
     }
     miIndex = 0;
     siIndex = 0;
@@ -23,41 +24,59 @@ SLang::SLang(vector<string> commands){
 
 
 vector<string> SLang::splitIt(string command){
-    vector<string> words;
-    for(unsigned int i = 0; i<command.size();++i){
-        if (command.at(i)==' '){
-            words.push_back(command.substr(0,i));
-            words.push_back(command.substr(i+1,-1));
+    vector<string> parts;//first part linenum second part instruction third part values
+    int firstSpace = 0;
+    int secondSpace = 0;
+    for(unsigned int i = 0; i<command.size();i++){
+        if ((command.at(i)==' ')&&(firstSpace==0)){
+            firstSpace = i;
+        }
+        else if (command.at(i)==' '){
+            secondSpace = i;
             break;
         }
     }
-    if(words.size() == 0){
-        words.push_back(command);
-        words.push_back("");
+    parts.push_back(command.substr(0,firstSpace));
+    if(secondSpace == 0){
+        parts.push_back(command.substr(firstSpace+1,-1));
+        parts.push_back("");
     }
-    return words;
+    else{
+        parts.push_back(command.substr(firstSpace+1,secondSpace-3));
+        parts.push_back(command.substr(secondSpace+1,-1));
+    }
+    cout<<parts[0]<<parts[1]<<parts[2]<<endl;
+    return parts;
 }
 //increments the interpreter
 //takes:nothing returns:0 when done or 1 to continue
 int SLang::next(){
     int returnInt =0;
-    if(instructions[siIndex] =="rem"){
+
+    if(instructions[siIndex]==""){
+        returnInt = 1;
+    }
+    else if(instructions[siIndex] =="rem"){
         siIndex++;
     }
     else if(instructions[siIndex] =="input"){
         mLangI[miIndex] = 1000+dIndex;
+        lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
+        char var = deets[siIndex].at(0);
+        variables.insert(pair<char,int>(var,dIndex));
         siIndex++;
         miIndex++;
-        char var = rest[siIndex].at(0);
-        variables.insert(pair<char,int>(var,dIndex));
+        dIndex--;
     }
     else if(instructions[siIndex] =="end"){
         mLangI[miIndex]=4300;
-        returnInt =1;
+        lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
+        siIndex++;
+        miIndex++;
     }
     else if(instructions[siIndex] =="print"){
-        if (variables.count(rest[siIndex].at(0))==1){
-            mLangI[miIndex] = 1100+variables[rest[siIndex].at(0)];
+        if (variables.count(deets[siIndex].at(0))==1){
+            mLangI[miIndex] = 1100+variables[deets[siIndex].at(0)];
             siIndex++;
             miIndex++;
         }
@@ -66,11 +85,38 @@ int SLang::next(){
             returnInt = 1;
         }
     }
+    else if(instructions[siIndex] =="goto"){
+        int goLine = stoi(deets[siIndex]);
+        if ( lineComp.find(goLine) == lineComp.end() ) {
+            mLangI[miIndex] = 4000;
+            reCheck.push_back(siIndex);
+        }
+        else{
+            mLangI[miIndex] = 4000 + lineComp[goLine];
+        }
+        lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
+        siIndex++;
+        miIndex++;
+
+    }
+    else if(instructions[siIndex] =="if"){
+
+    }
     else{
         cerr<<"You entered a bad command and now everything is messed up.  I can't help you now"<<endl;
         returnInt=1;
     }
     return returnInt;
+}
+
+void SLang::secondRun(){
+    for(unsigned int i = 0; i<reCheck.size();++i){
+        if (instructions[reCheck[i]] == "goto"){
+            int goLine = stoi(deets[reCheck[i]]);
+            int originalLine = lineNums[reCheck[i]];
+            mLangI[lineComp[originalLine]] = 4000 + lineComp[goLine];
+        }
+    }
 }
 std::vector<int> SLang::returnFinal(){
     vector<int> finalMLang;

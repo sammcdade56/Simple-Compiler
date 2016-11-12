@@ -17,6 +17,7 @@ class SLang{
         explicit SLang(std::vector<std::string> commands);
         std::vector<std::string> splitIt(std::string);
         std::vector<int> returnFinal();
+        void secondRun();
         int next();
 
     private:
@@ -26,9 +27,12 @@ class SLang{
         int dIndex;//data index
         std::vector<std::string> errors;//errors
         //std::vector<std::tuple<int,std::string,std::string,int>;
+        std::vector<int> lineNums;
         std::vector<std::string> instructions;
-        std::vector<std::string> rest;
+        std::vector<std::string> deets;
         std::map<char,int> variables;
+        std::map<int,int> lineComp;//slang,mlang
+        std::vector<int> reCheck;
 };
 #endif
 

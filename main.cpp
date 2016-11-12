@@ -11,16 +11,21 @@ int main()
 {
     string fileName;
     vector<string> simple;
-    simple.push_back("rem this");
-    simple.push_back("input x");
-    simple.push_back("print x");
-    simple.push_back("end");
+    simple.push_back("10 rem this");
+    simple.push_back("20 input x");
+    simple.push_back("30 input y");
+    simple.push_back("35 print x");
+    simple.push_back("40 goto 50");
+    simple.push_back("45 print y");
+    //simple.push_back("40 if x > y 35");
+    simple.push_back("50 end");
 
     SLang s(simple);
     int repeatNum = 0;
     while(repeatNum==0){
         repeatNum = s.next();
     }
+    s.secondRun();
     vector<int> machine= s.returnFinal();
     for(unsigned int i = 0; i<machine.size();++i){
         cout<<machine[i]<<endl;
