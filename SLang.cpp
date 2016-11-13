@@ -4,8 +4,13 @@
 #include <array>
 #include <map>
 #include <math.h>
+#include <stack>
+#include <queue>
+#include <locale>
+#include <typeinfo>
+
 #include "SLang.h"
-#include<typeinfo>
+
 
 using namespace std;
 //creates machine language interpreter
@@ -74,6 +79,10 @@ int SLang::next(){
     else if(instructions[siIndex] =="if"){
         returnInt = ifIt();
     }
+    else if(instructions[siIndex] =="let"){
+        string eval = deets[siIndex].substr(4,deets[siIndex].size()-4);
+        returnInt = let(eval);
+    }
     else{
         cerr<<"You entered a bad command and now everything is messed up.  I can't help you now"<<endl;
         returnInt=1;
@@ -119,7 +128,14 @@ int SLang::gotoIt(int branchInstr,int goLine){
 }
 int SLang::ifIt(){
     int firstV = variables[deets[siIndex].at(0)];
-    char op = deets[siIndex].at(2);
+    int len;
+    if(deets[siIndex].at(3)==' '){
+        len = 1;
+    }
+    else{
+        len = 2;
+    }
+    string op = deets[siIndex].substr(2,len);
     int j;
     for(unsigned int i = 4; i<deets[siIndex].size();i++){
         if(deets[siIndex].substr(i,4)=="goto"){
@@ -135,30 +151,50 @@ int SLang::ifIt(){
     if(notSolved.size()==1){
         secondV = variables[notSolved.at(0)];
     }
-    if (op == '='){
+    if (op == "=" || op == ">=" || op == "<="){
         mLangI[miIndex] = 2000 + firstV;
         miIndex ++;
         mLangI[miIndex] = 3100 + secondV;
         miIndex ++;
         gotoIt(4200,gotoLine);
     }
-    else if (op == '<'){
+    else if (op == "<" || op == "<="){
         mLangI[miIndex] = 2000 + firstV;
         miIndex ++;
         mLangI[miIndex] = 3100 + secondV;
         miIndex ++;
         gotoIt(4100,gotoLine);
     }
-    else if (op == '>'){
+    else if (op == ">" || op == ">="){
         mLangI[miIndex] = 2000 + secondV;
         miIndex ++;
         mLangI[miIndex] = 3100 + firstV;
         miIndex ++;
         gotoIt(4100,gotoLine);
     }
+    else if (op == "!="){
+        mLangI[miIndex] = 4100 + miIndex + 2;
+        miIndex ++;
+        gotoIt(4000,gotoLine);
+    }
+    else{
+        cerr<<"wrong op"<<endl;
+        return 1;
+    }
     return 0;
 }
 
+int SLang::let(string eval){
+    vector<char> infixed= infixRet(eval);
+    locale loc;
+    //myvector.erase(myvector.begin()+i)
+    for(int i = 0; i<infixed.size();i++){
+        if(!(isdigit(infixed[i],loc))){
+
+        }
+    }
+    return 0;
+}
 
 void SLang::secondRun(){
     typedef map<int,int>::iterator it_type;
@@ -181,13 +217,87 @@ void SLang::secondRun(){
         }
     }
 }
-std::vector<int> SLang::returnFinal(){
+
+vector<char> SLang::infixRet(string infix){
+    stack<string> processingStack;
+	queue<string> postFixStack;
+	map<string, int> bob;
+	bob["+"] = 1;	bob["-"] = 1;	bob["*"] = 2;	bob["/"] = 2;	bob["("] = 0;
+	string ops = "+-*/";
+	//cout << infix << endl;
+	//cout << infix.length() << endl;
+	for (unsigned int i = 0; i<infix.length(); i = i + 1){
+		locale loc;
+		char p =  infix[i];
+		//cout << p << endl;
+		string g = string(1,p);
+		//cout << g << endl;
+ 		if(isdigit(p, loc)){
+			//cout << "Here She Is: " << &p << "!" << endl;
+			postFixStack.push(g);
+			//cout << "We gotta digit! It is " << p << endl;
+		}
+		if(isalpha(p, loc)){
+			postFixStack.push(g);
+		}
+		if(g.compare("(") == 0){
+			processingStack.push(g);
+		}
+		if(ops.find(g) != string::npos){
+			bool highPrecedent = true;
+			//cout << "Found an op! It is " << g << endl;
+			while(processingStack.size() > 0 && highPrecedent){
+				string red = processingStack.top();
+				if(bob[red] >= bob[g]){
+					postFixStack.push(processingStack.top());
+					//cout << processingStack.top() << endl;
+					processingStack.pop();
+				}
+				else{
+					highPrecedent = false;
+				}
+			}
+			processingStack.push(g);
+			//cout << postFixStack.front() << endl;
+		}
+		if(g.compare(")") == 0){
+			bool isFound = false;
+			while(processingStack.size() > 0 and !isFound){
+				string red = processingStack.top();
+				//cout << "red is " << red << endl;
+				if(red != "("){
+					postFixStack.push(processingStack.top());
+					processingStack.pop();
+				}else{
+					processingStack.pop();
+					isFound = true;
+				}
+			}
+			if(!isFound){
+				cout << "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
+			}
+		}
+
+	}
+	while(!processingStack.empty()){
+		if(processingStack.top() != "("){
+			postFixStack.push(processingStack.top());
+		}
+		processingStack.pop();
+	}
+	vector<char> results;
+	while(!postFixStack.empty()){
+        results.push_back(postFixStack.front().at(0));
+		postFixStack.pop();
+	}
+	return results;
+}
+vector<int> SLang::returnFinal(){
     vector<int> finalMLang;
-    size_t i =0;
-    while(mLangI[i]!=0)
+    for(int i = 0; i<miIndex-1;i++)
     {
        finalMLang.push_back(mLangI[i]);
-       i++;
     }
     return finalMLang;
 }
+

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string> 
+#include <string>
 #include <map>
 #include <stack>
 #include <queue>
@@ -18,18 +18,18 @@ int main(){
 	string ops = "+-*/";
 	cout << "What I truly crave is an  inFix Expresion! Give me one Now!" << endl;
 	getline(cin,infix);
-	cout << infix << endl;
-	cout << infix.length() << endl;
+	//cout << infix << endl;
+	//cout << infix.length() << endl;
 	for (int i = 0; i<infix.length(); i = i + 1){
 		locale loc;
 		char p =  infix[i];
-		cout << p << endl;
+		//cout << p << endl;
 		string g = string(1,p);
-		cout << g << endl;
+		//cout << g << endl;
  		if(isdigit(p, loc)){
-			cout << "Here She Is: " << &p << "!" << endl;	
+			//cout << "Here She Is: " << &p << "!" << endl;
 			postFixStack.push(g);
-			cout << "We gotta digit! It is " << p << endl;
+			//cout << "We gotta digit! It is " << p << endl;
 		}
 		if(isalpha(p, loc)){
 			postFixStack.push(g);
@@ -39,12 +39,12 @@ int main(){
 		}
 		if(ops.find(g) != string::npos){
 			bool highPrecedent = true;
-			cout << "Found an op! It is " << g << endl;
+			//cout << "Found an op! It is " << g << endl;
 			while(processingStack.size() > 0 && highPrecedent){
 				string red = processingStack.top();
-				if(bob[red] >= bob[g]){							
+				if(bob[red] >= bob[g]){
 					postFixStack.push(processingStack.top());
-					cout << processingStack.top() << endl;	
+					//cout << processingStack.top() << endl;
 					processingStack.pop();
 				}
 				else{
@@ -58,30 +58,32 @@ int main(){
 			bool isFound = false;
 			while(processingStack.size() > 0 and !isFound){
 				string red = processingStack.top();
-				cout << "red is " << red << endl;
+				//cout << "red is " << red << endl;
 				if(red != "("){
 					postFixStack.push(processingStack.top());
 					processingStack.pop();
 				}else{
 					processingStack.pop();
-					isFound = true;	
+					isFound = true;
 				}
-			}	
+			}
 			if(!isFound){
 				cout << "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
-			}		
+			}
 		}
-		
+
 	}
 	while(!processingStack.empty()){
-		if(processingStack.top() != "("){	
+		if(processingStack.top() != "("){
 			postFixStack.push(processingStack.top());
 		}
-		processingStack.pop();	
+		processingStack.pop();
 	}
+	string results = "";
 	while(!postFixStack.empty()){
-		cout << postFixStack.front() << ' ';
-		postFixStack.pop();	
-	}	
+        results+=postFixStack.front() + " ";
+		postFixStack.pop();
+	}
+	cout<<results<<endl;
 	return 0;
 }

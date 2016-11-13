@@ -24,7 +24,8 @@ class SLang{
         int gotoIt(int,int);
         int ifIt();
         int next();
-
+        int let(std::string);
+        std::vector<char> infixRet(std::string);
     private:
         std::array<int,100> mLangI;//machine language instructions
         int miIndex;//machine instruction index
