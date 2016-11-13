@@ -80,8 +80,7 @@ int SLang::next(){
         returnInt = ifIt();
     }
     else if(instructions[siIndex] =="let"){
-        string eval = deets[siIndex].substr(4,deets[siIndex].size()-4);
-        returnInt = let(eval);
+        returnInt = let();
     }
     else{
         cerr<<"You entered a bad command and now everything is messed up.  I can't help you now"<<endl;
@@ -145,11 +144,13 @@ int SLang::ifIt(){
     }
     int gotoLine = stoi(deets[siIndex].substr(j+5,deets[siIndex].size()-j-5));
     string notSolved = deets[siIndex].substr(4,j-5);
-    //use solver here yay!
     int secondV;//solver will find this!
     lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
     if(notSolved.size()==1){
         secondV = variables[notSolved.at(0)];
+    }
+    else{
+        secondV = solve(notSolved);
     }
     if (op == "=" || op == ">=" || op == "<="){
         mLangI[miIndex] = 2000 + firstV;
@@ -183,17 +184,67 @@ int SLang::ifIt(){
     }
     return 0;
 }
-
-int SLang::let(string eval){
+int SLang::let(){
+    string eval = deets[siIndex].substr(4,deets[siIndex].size()-4);
+    reCheck.insert(pair<int,int>(siIndex,miIndex));
+    int loc = solve(eval);
+    char var = deets[siIndex].at(0);
+    if(variables.count(var)==0){
+        variables.insert(pair<char,int>(var,dIndex));
+        dIndex--;
+    }
+    mLangI[miIndex]=2000+loc;
+    miIndex++;
+    mLangI[miIndex]=2100+ variables[var];
+    return 1;
+}
+int SLang::solve(string eval){
     vector<char> infixed= infixRet(eval);
     locale loc;
-    //myvector.erase(myvector.begin()+i)
+    vector<string> doOps;
     for(int i = 0; i<infixed.size();i++){
-        if(!(isdigit(infixed[i],loc))){
-
+        if((isdigit(infixed[i],loc))&&(variables.count(infixed[i])==0)){
+            mLangI[dIndex] = infixed[i] - 48;//numbers in ascii, 0 is 48
+            variables.insert(pair<char,int>(infixed[i],dIndex));
+            dIndex--;
+        }
+        if((isdigit(infixed[i],loc))||(isalpha(infixed[i],loc))){
+            doOps.push_back(to_string(variables[infixed[i]]));
+        }
+        else{
+            string str(1,infixed[i]);
+            doOps.push_back(str);
         }
     }
-    return 0;
+    int it=0;
+    while(doOps.size()>1){
+        if((doOps[it]=="+")||(doOps[it]=="-")||(doOps[it]=="*")||(doOps[it]=="/")){
+            mLangI[miIndex] = 2000+ stoi(doOps[it-2]);
+            miIndex++;
+            if (doOps[it]=="+"){
+                mLangI[miIndex] = 3000+stoi(doOps[it-1]);
+            }
+            else if (doOps[it]=="-"){
+                mLangI[miIndex] = 3100+stoi(doOps[it-1]);
+            }
+            else if (doOps[it]=="*"){
+                mLangI[miIndex] = 3200+stoi(doOps[it-1]);
+            }
+            else if (doOps[it]=="/"){
+                mLangI[miIndex] = 3300+stoi(doOps[it-1]);
+            }
+            miIndex++;
+            mLangI[miIndex] = 2100+dIndex;
+            miIndex++;
+            doOps.erase(doOps.begin()+it-1);
+            doOps.erase(doOps.begin()+it-1);
+            doOps[it-2] = to_string(dIndex);
+            it = 0;
+            dIndex--;
+        }
+        it++;
+    }
+    return dIndex+1;
 }
 
 void SLang::secondRun(){
@@ -292,12 +343,21 @@ vector<char> SLang::infixRet(string infix){
 	}
 	return results;
 }
-vector<int> SLang::returnFinal(){
-    vector<int> finalMLang;
+vector<string> SLang::returnFinal(){
+    vector<string> finalMLang;
     for(int i = 0; i<miIndex-1;i++)
     {
-       finalMLang.push_back(mLangI[i]);
+       finalMLang.push_back(to_string(i) + ": " + to_string(mLangI[i]));
     }
     return finalMLang;
+}
+
+vector<string> SLang::returnData(){
+    vector<string> finalData;
+    for(int i = 99; i>dIndex;i--)
+    {
+       finalData.push_back(to_string(i) + ": " + to_string(mLangI[i]));
+    }
+    return finalData;
 }
 

@@ -16,7 +16,8 @@ class SLang{
     public:
         explicit SLang(std::vector<std::string> commands);
         std::vector<std::string> splitIt(std::string);
-        std::vector<int> returnFinal();
+        std::vector<std::string> returnFinal();
+        std::vector<std::string> returnData();
         void secondRun();
         int input();
         int endIt();
@@ -24,7 +25,8 @@ class SLang{
         int gotoIt(int,int);
         int ifIt();
         int next();
-        int let(std::string);
+        int let();
+        int solve(std::string);
         std::vector<char> infixRet(std::string);
     private:
         std::array<int,100> mLangI;//machine language instructions

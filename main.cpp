@@ -15,7 +15,7 @@ int main()
     simple.push_back("20 input x");
     simple.push_back("30 input y");
     simple.push_back("35 print x");
-    //simple.push_back("40 let x = 5 + y");
+    simple.push_back("40 let x = 5 + 5 + 6 ");
     simple.push_back("50 print x");
     simple.push_back("60 end");
 
@@ -25,9 +25,14 @@ int main()
         repeatNum = s.next();
     }
     s.secondRun();
-    vector<int> machine= s.returnFinal();
+    vector<string> machine= s.returnFinal();
     for(unsigned int i = 0; i<machine.size();++i){
         cout<<machine[i]<<endl;
+    }
+    cout<<"data:"<<endl;
+    vector<string> data = s.returnData();
+    for(unsigned int i = 0; i<data.size();++i){
+        cout<<data[i]<<endl;
     }
     return 0;
 }
