@@ -361,3 +361,7 @@ vector<string> SLang::returnData(){
     return finalData;
 }
 
+array<int,100> SLang::returnAll(){
+    return mLangI;
+}
+
