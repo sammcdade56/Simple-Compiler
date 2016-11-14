@@ -35,8 +35,8 @@ int main()
     s.secondRun();
     array<int, 100> tim = s.returnAll();
     ofstream ofs ("test.txt", std::ofstream::out);
-    for(i = 0, i < array.size(), i = i + 1){
-	ofs << to_string(tim[i]) + "/n";
+    for(int i = 0; i < tim.size(); i = i + 1){
+        ofs << to_string(tim[i]) + "\n";
     }
     ofs.close();
    /* vector<string> machine= s.returnFinal();

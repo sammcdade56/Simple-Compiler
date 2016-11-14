@@ -22,6 +22,9 @@ SLang::SLang(vector<string> commands){
         instructions.push_back(split[1]);
         deets.push_back(split[2]);
     }
+    for(unsigned int i = 0; i < mLangI.size(); i++){
+        mLangI[i] = 0;
+    }
     instructions.push_back("nomore");
     miIndex = 0;
     siIndex = 0;
