@@ -18,6 +18,7 @@ class SLang{
         std::vector<std::string> splitIt(std::string);
         std::vector<std::string> returnFinal();
         std::vector<std::string> returnData();
+        std::array<int,100> returnAll();
         void secondRun();
         int input();
         int endIt();

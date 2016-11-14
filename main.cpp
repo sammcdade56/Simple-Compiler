@@ -25,7 +25,6 @@ int main()
     string line;
     while(getline(fileVar,line)){
         simple.push_back(line);
-        cout<<line<<endl;
     }
 
     SLang s(simple);
