@@ -11,12 +11,23 @@ int main()
 {
     string fileName;
     vector<string> simple;
-    simple.push_back("10 rem this");
+    /*simple.push_back("10 rem this");
     simple.push_back("20 input x");
     simple.push_back("30 input y");
     simple.push_back("40 let x = x + y");
     simple.push_back("50 print x");
-    simple.push_back("60 end");
+    simple.push_back("60 end");*/
+
+    ifstream fileVar;
+    fileVar.open("simple.txt", ifstream::in);
+    if (!fileVar.is_open()){
+        cout << " Cannot open file!" << endl;
+    }
+    string line;
+    while(!fileVar.eof()){
+	fileVar >> line;
+	simple.push_back(line);
+    }     
 
     SLang s(simple);
     int repeatNum = 0;
