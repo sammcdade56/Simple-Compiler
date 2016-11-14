@@ -34,14 +34,21 @@ int main()
         repeatNum = s.next();
     }
     s.secondRun();
-    vector<string> machine= s.returnFinal();
+    array<int, 100> tim = s.returnAll();
+    ofstream ofs ("test.txt", std::ofstream::out);
+    for(i = 0, i < array.size(), i = i + 1){
+	ofs << to_string(tim[i]) + "/n";
+    }
+    ofs.close();
+   /* vector<string> machine= s.returnFinal();
     for(unsigned int i = 0; i<machine.size();++i){
         cout<<machine[i]<<endl;
     }
+
     cout<<"data:"<<endl;
     vector<string> data = s.returnData();
     for(unsigned int i = 0; i<data.size();++i){
         cout<<data[i]<<endl;
-    }
+    }*/
     return 0;
 }
