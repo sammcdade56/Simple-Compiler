@@ -9,7 +9,6 @@ using namespace std;
 
 int main()
 {
-    string fileName;
     vector<string> simple;
     /*simple.push_back("10 rem this");
     simple.push_back("20 input x");
@@ -24,10 +23,10 @@ int main()
         cout << " Cannot open file!" << endl;
     }
     string line;
-    while(!fileVar.eof()){
-	fileVar >> line;
-	simple.push_back(line);
-    }     
+    while(getline(fileVar,line)){
+        simple.push_back(line);
+        cout<<line<<endl;
+    }
 
     SLang s(simple);
     int repeatNum = 0;
