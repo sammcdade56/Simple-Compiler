@@ -196,7 +196,7 @@ int SLang::let(){
     mLangI[miIndex]=2000+loc;
     miIndex++;
     mLangI[miIndex]=2100+ variables[var];
-    return 1;
+    return 0;
 }
 int SLang::solve(string eval){
     vector<char> infixed= infixRet(eval);

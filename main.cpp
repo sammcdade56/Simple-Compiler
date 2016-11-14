@@ -14,8 +14,7 @@ int main()
     simple.push_back("10 rem this");
     simple.push_back("20 input x");
     simple.push_back("30 input y");
-    simple.push_back("35 print x");
-    simple.push_back("40 let x = 5 + 5 + 6 ");
+    simple.push_back("40 let x = x + y");
     simple.push_back("50 print x");
     simple.push_back("60 end");
 
