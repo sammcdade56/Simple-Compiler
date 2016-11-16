@@ -155,7 +155,7 @@ int SLang::ifIt(){
     else{
         secondV = solve(notSolved);
     }
-    if (op == "=" || op == ">=" || op == "<="){
+    if (op == "==" || op == ">=" || op == "<="){
         mLangI[miIndex] = 2000 + firstV;
         miIndex ++;
         mLangI[miIndex] = 3100 + secondV;

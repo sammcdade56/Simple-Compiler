@@ -11,8 +11,12 @@ int main()
 {
     //This is the vector that will contain the simple code to get complied
     vector<string> simple;
+<<<<<<< HEAD
     
     //This is the file that contains the simple code that needs to get complied
+=======
+
+>>>>>>> 10b36955966c20ed836e03280e6b1c48efe19762
     ifstream fileVar;
     fileVar.open("simple.txt", ifstream::in);
     

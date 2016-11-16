@@ -35,7 +35,6 @@ class SLang{
         int siIndex;//simple instruction index
         int dIndex;//data index
         std::vector<std::string> errors;//errors
-        //std::vector<std::tuple<int,std::string,std::string,int>;
         std::vector<int> lineNums;//this is the line numbers for the simple instructions
         std::vector<std::string> instructions;//these are the simple instructions
         std::vector<std::string> deets;//these are the important bits the simple instructions are done on
