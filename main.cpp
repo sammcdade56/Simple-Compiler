@@ -10,12 +10,6 @@ using namespace std;
 int main()
 {
     vector<string> simple;
-    /*simple.push_back("10 rem this");
-    simple.push_back("20 input x");
-    simple.push_back("30 input y");
-    simple.push_back("40 let x = x + y");
-    simple.push_back("50 print x");
-    simple.push_back("60 end");*/
 
     ifstream fileVar;
     fileVar.open("simple.txt", ifstream::in);
@@ -39,15 +33,5 @@ int main()
         ofs << to_string(tim[i]) + "\n";
     }
     ofs.close();
-   /* vector<string> machine= s.returnFinal();
-    for(unsigned int i = 0; i<machine.size();++i){
-        cout<<machine[i]<<endl;
-    }
-
-    cout<<"data:"<<endl;
-    vector<string> data = s.returnData();
-    for(unsigned int i = 0; i<data.size();++i){
-        cout<<data[i]<<endl;
-    }*/
     return 0;
 }
