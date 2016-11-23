@@ -128,6 +128,7 @@ int SLang::gotoIt(int branchInstr,int goLine){
     }
     return 0;
 }
+
 int SLang::ifIt(){
     int firstV = variables[deets[siIndex].at(0)];
     int len;
@@ -187,6 +188,7 @@ int SLang::ifIt(){
     }
     return 0;
 }
+
 int SLang::let(){
     string eval = deets[siIndex].substr(4,deets[siIndex].size()-4);
     reCheck.insert(pair<int,int>(siIndex,miIndex));
@@ -201,6 +203,7 @@ int SLang::let(){
     mLangI[miIndex]=2100+ variables[var];
     return 0;
 }
+
 int SLang::solve(string eval){
     vector<char> infixed= infixRet(eval);
     locale loc;
@@ -278,18 +281,12 @@ vector<char> SLang::infixRet(string infix){
 	map<string, int> bob;
 	bob["+"] = 1;	bob["-"] = 1;	bob["*"] = 2;	bob["/"] = 2;	bob["("] = 0;
 	string ops = "+-*/";
-	//cout << infix << endl;
-	//cout << infix.length() << endl;
 	for (unsigned int i = 0; i<infix.length(); i = i + 1){
 		locale loc;
 		char p =  infix[i];
-		//cout << p << endl;
 		string g = string(1,p);
-		//cout << g << endl;
  		if(isdigit(p, loc)){
-			//cout << "Here She Is: " << &p << "!" << endl;
 			postFixStack.push(g);
-			//cout << "We gotta digit! It is " << p << endl;
 		}
 		if(isalpha(p, loc)){
 			postFixStack.push(g);
@@ -299,12 +296,10 @@ vector<char> SLang::infixRet(string infix){
 		}
 		if(ops.find(g) != string::npos){
 			bool highPrecedent = true;
-			//cout << "Found an op! It is " << g << endl;
 			while(processingStack.size() > 0 && highPrecedent){
 				string red = processingStack.top();
 				if(bob[red] >= bob[g]){
 					postFixStack.push(processingStack.top());
-					//cout << processingStack.top() << endl;
 					processingStack.pop();
 				}
 				else{
@@ -312,13 +307,11 @@ vector<char> SLang::infixRet(string infix){
 				}
 			}
 			processingStack.push(g);
-			//cout << postFixStack.front() << endl;
 		}
 		if(g.compare(")") == 0){
 			bool isFound = false;
 			while(processingStack.size() > 0 and !isFound){
 				string red = processingStack.top();
-				//cout << "red is " << red << endl;
 				if(red != "("){
 					postFixStack.push(processingStack.top());
 					processingStack.pop();
@@ -346,6 +339,8 @@ vector<char> SLang::infixRet(string infix){
 	}
 	return results;
 }
+
+
 vector<string> SLang::returnFinal(){
     vector<string> finalMLang;
     for(int i = 0; i<miIndex-1;i++)

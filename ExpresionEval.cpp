@@ -80,6 +80,7 @@ int main(){
 		processingStack.pop();
 	}
 	string results = "";
+	
 	while(!postFixStack.empty()){
         results+=postFixStack.front() + " ";
 		postFixStack.pop();

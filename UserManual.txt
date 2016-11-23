@@ -1,0 +1,6 @@
+Good Evening and Welcome to the Simple Compiler!
+The goal of this project is to take a Simple program that you have written and run it! Exciting, I know!
+To achive this goal, it'll be like a stalking an ex which is to say it'll be a group project.
+
+ g++ SLang.cpp SLang.h main.cpp -std=c++11 -o main
+
