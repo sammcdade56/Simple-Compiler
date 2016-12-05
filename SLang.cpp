@@ -108,14 +108,14 @@ int SLang::endIt(){
     return 0;
 }
 int SLang::print(){
-    if (variables.count(deets[siIndex].at(0))==1){
+    if (variables.count(deets[siIndex].at(0))!=0){
         mLangI[miIndex] = 1100+variables[deets[siIndex].at(0)];
         lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
         return 0;
     }
     else{
         cerr<<"can't print what doesn't exist"<<endl;
-        return 1;
+        exit(0)
     }
 }
 int SLang::gotoIt(int branchInstr,int goLine){
@@ -321,7 +321,7 @@ vector<char> SLang::infixRet(string infix){
 				}
 			}
 			if(!isFound){
-				cout << "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
+				cerr<< "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
 			}
 		}
 
