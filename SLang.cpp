@@ -166,7 +166,7 @@ int SLang::print(){
     }
     else{
         cerr<<"can't print what doesn't exist"<<endl;
-        exit(0)
+        exit(0);
     }
 
 }
@@ -423,12 +423,8 @@ vector<char> SLang::infixRet(string infix){
 				}
 			}
 			if(!isFound){
-<<<<<<< HEAD
 				cerr << "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
-=======
-				cerr<< "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
->>>>>>> 3cb722acf2226f94d014eb8c42d1ba3d5d0ad959
-			}
+}
 		}
 
 	}
