@@ -139,6 +139,7 @@ int SLang::endIt(){
 //This method generates the machine langague code for the print command in the simple language
 //It fails if there is nothing to print or a literal is trying to be printed
 int SLang::print(){
+<<<<<<< HEAD
 	if(deets[siIndex].length() ==0){
 		cerr << "You do not have anything after your print line" << endl;
 		exit(0);
@@ -157,6 +158,17 @@ int SLang::print(){
 		cerr << "You are trying to print a literal" << endl;
 		exit(0);
 	}
+=======
+    if (variables.count(deets[siIndex].at(0))!=0){
+        mLangI[miIndex] = 1100+variables[deets[siIndex].at(0)];
+        lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
+        return 0;
+    }
+    else{
+        cerr<<"can't print what doesn't exist"<<endl;
+        exit(0)
+    }
+>>>>>>> 3cb722acf2226f94d014eb8c42d1ba3d5d0ad959
 }
 //Generates the sml code for the goto command
 //Returns a zero int
@@ -411,7 +423,11 @@ vector<char> SLang::infixRet(string infix){
 				}
 			}
 			if(!isFound){
+<<<<<<< HEAD
 				cerr << "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
+=======
+				cerr<< "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
+>>>>>>> 3cb722acf2226f94d014eb8c42d1ba3d5d0ad959
 			}
 		}
 
