@@ -29,6 +29,8 @@ class SLang{
         int let();
         int solve(std::string);
         std::vector<char> infixRet(std::string);
+	bool isDigit(std::string);
+	bool isOp(std::string);
     private:
         std::array<int,100> mLangI;//machine language instructions
         int miIndex;//machine instruction index
