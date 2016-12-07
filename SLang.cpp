@@ -203,7 +203,7 @@ int SLang::ifIt(){
         }
     }
     int gotoLine = stoi(deets[siIndex].substr(j+5,deets[siIndex].size()-j-5));
-    string notSolved = deets[siIndex].substr(4,j-5);
+    string notSolved = deets[siIndex].substr(2+len,j-5);
     int secondV;//solver will find this!
     lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
     if(notSolved.size()==1){
