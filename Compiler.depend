@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1479309167 source:/home/nikki/Simple-Compiler/main.cpp
+1481084956 source:/home/nikki/Simple-Compiler/main.cpp
 	<iostream>
 	<iomanip>
 	<fstream>
@@ -20,7 +20,7 @@
 	<typeinfo>
 	"SLang.h"
 
-1479309079 /home/nikki/Simple-Compiler/SLang.h
+1481084956 /home/nikki/Simple-Compiler/SLang.h
 	<string>
 	<array>
 	<vector>

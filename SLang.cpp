@@ -147,7 +147,7 @@ int SLang::print(){
 	if(!isDigit(deets[siIndex])){
 		if(variables.count(deets[siIndex].at(0))==0){
 			variables.insert(pair<char,int>(deets[siIndex].at(0),dIndex));
-			dIndex--;		
+			dIndex--;
 		}
 		mLangI[miIndex] = 1100+variables[deets[siIndex].at(0)];
         	lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
@@ -160,7 +160,7 @@ int SLang::print(){
 }
 //Generates the sml code for the goto command
 //Returns a zero int
-int SLang::gotoIt(int branchInstr,int goLine){	    
+int SLang::gotoIt(int branchInstr,int goLine){
 	if ( lineComp.find(goLine) == lineComp.end() ) {
     	    mLangI[miIndex] = branchInstr;
     	    reCheck.insert(pair<int,int>(siIndex,miIndex));
@@ -237,19 +237,12 @@ int SLang::ifIt(){
 //Returns an int of zero
 int SLang::let(){
     string eval = deets[siIndex].substr(4,deets[siIndex].size()-4);
-    for(int i = 0; i < eval.length(); i++){
-	string bob = string(1, eval[i]);
-	if(isDigit(bob)){
-		cerr << "You have a number in your let expression" << endl;
-		exit(0);
-	}
-    }
     lineComp.insert(pair<int,int>(siIndex,miIndex));
     int loc = solve(eval);
     char var = deets[siIndex].at(0);
     if(isDigit(string(1,var))){
-	cerr << "You have a number in your let expression" << endl;
-	exit(0);
+        cerr << "You cannot have a literal assignment in a let expression" << endl;
+        exit(0);
     }
     if(variables.count(var)==0){
         variables.insert(pair<char,int>(var,dIndex));
@@ -278,7 +271,7 @@ int SLang::solve(string eval){
         else if((isalpha(infixed[i],loc))&&(variables.count(infixed[i])==0)){
             variables.insert(pair<char,int>(infixed[i],dIndex));
             dIndex--;
-        }	
+        }
         if((isdigit(infixed[i],loc))||(isalpha(infixed[i],loc))){
             doOps.push_back(to_string(variables[infixed[i]]));
         }
@@ -288,7 +281,7 @@ int SLang::solve(string eval){
         }
     }
     int it=0;
-    
+
     while(doOps.size()>1){
 	//cerr << doOps.end() << endl;
 	if(!isOp(doOps[doOps.size()-1])){
@@ -331,7 +324,7 @@ void SLang::secondRun(){
         if (instructions[iterator->first] == "goto"){
             int goLine = stoi(deets[iterator->first]);
 	    if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
-	
+
 	    }
             else {
      		cerr <<"Your goto line is to a line number that doesn't exist" << endl;
@@ -350,7 +343,7 @@ void SLang::secondRun(){
             }
             int goLine = stoi(instr.substr(j+5,instr.size()-j-5));
        	    if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
-	
+
  	    } else {
      		cerr <<"Your goto line is to a line number that doesn't exist" << endl;
 		exit(0);
