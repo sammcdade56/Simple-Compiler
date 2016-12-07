@@ -19,7 +19,10 @@ End - The end command is the word end. I.E. end. This command ends the excution 
 
 Goto- The goto command is the word goto followed by a line number. I.E. goto 40. This command goes to the specified line number and begins to excute from there. 
  
-If - The if command is the word if followed by a varaible then a 
+If - The if command is the word if followed by a varaible then a comparator then an expression then the goto command. I.E. if x > 6 + 5 goto 70. This command excutes the goto if the comparator is true.
+
+Other Terms to know when programing:
+Variable - A one character string that represents a number value. 
 
 Now that you have a program made. Here's how you run it in the termainal:
 1.) go to the simple language folder and run this from the termainal to compile the program:  g++ SLang.cpp SLang.h main.cpp -std=c++11 -o main
