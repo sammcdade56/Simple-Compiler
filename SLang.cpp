@@ -146,7 +146,7 @@ int SLang::print(){
 	}
 	if(!isDigit(deets[siIndex])){
 		if(variables.count(deets[siIndex].at(0))==0){
-			variables.insert(pair<char,int>(var,dIndex));
+			variables.insert(pair<char,int>(deets[siIndex].at(0),dIndex));
 			dIndex--;		
 		}
 		mLangI[miIndex] = 1100+variables[deets[siIndex].at(0)];
@@ -191,7 +191,7 @@ int SLang::ifIt(){
         }
     }
     int gotoLine = stoi(deets[siIndex].substr(j+5,deets[siIndex].size()-j-5));
-    string notSolved = deets[siIndex].substr(2+len,j-5);
+    string notSolved = deets[siIndex].substr(3+len,j-5);
     int secondV;//solver will find this!
     lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
     if(notSolved.size()==1){
@@ -330,14 +330,13 @@ void SLang::secondRun(){
     for(it_type iterator = reCheck.begin(); iterator != reCheck.end(); iterator++) {
         if (instructions[iterator->first] == "goto"){
             int goLine = stoi(deets[iterator->first]);
-
-	if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
+	    if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
 	
-	} else {
+	    }
+            else {
      		cerr <<"Your goto line is to a line number that doesn't exist" << endl;
 		exit(0);
-	}
-
+         	}
             mLangI[iterator->second] += lineComp[goLine];
         }
         if (instructions[iterator->first] == "if"){
@@ -350,13 +349,12 @@ void SLang::secondRun(){
                 }
             }
             int goLine = stoi(instr.substr(j+5,instr.size()-j-5));
-	if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
+       	    if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
 	
-	} else {
+ 	    } else {
      		cerr <<"Your goto line is to a line number that doesn't exist" << endl;
 		exit(0);
-	}
-
+	    }
             mLangI[iterator->second] += lineComp[goLine];
         }
     }
