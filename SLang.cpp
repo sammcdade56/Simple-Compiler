@@ -139,7 +139,6 @@ int SLang::endIt(){
 //This method generates the machine langague code for the print command in the simple language
 //It fails if there is nothing to print or a literal is trying to be printed
 int SLang::print(){
-
 	if(deets[siIndex].length() ==0){
 		cerr << "You do not have anything after your print line" << endl;
 		exit(0);
@@ -245,7 +244,7 @@ int SLang::let(){
 		exit(0);
 	}
     }
-    reCheck.insert(pair<int,int>(siIndex,miIndex));
+    lineComp.insert(pair<int,int>(siIndex,miIndex));
     int loc = solve(eval);
     char var = deets[siIndex].at(0);
     if(isDigit(string(1,var))){
