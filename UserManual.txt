@@ -1,6 +1,31 @@
 Good Evening and Welcome to the Simple Compiler!
 The goal of this project is to take a Simple program that you have written and run it! Exciting, I know!
 To achive this goal, it'll be like a stalking an ex which is to say it'll be a group project.
+You are able to write a program using our languague. To do this, you must create a file named simple.txt - This will be the file containing the program. 
+From there, you can write your program. It must be in the format of Line Number then a space then the commmand. 
+I.E. 56 input x 
+The line number is the first part of the line and must be a unique postive whole number less than 100. Repeating line numbers in the same program will though an error.
+The command is the next part of the line. With the Simple Languge, you have access to many commands. These include, and are limited to, the following:
 
- g++ SLang.cpp SLang.h main.cpp -std=c++11 -o main
+Let - The let command is the word let followed by a varabile set equal to some expresion. I.E. - let x = 5 + y. This command sets the variable on the left hand side of the equal signs equal to the right hand expression.
+
+Input - The input command is the word input followed by a variable. I.E. input x. This command takes an input from the user and assaigns the variable to the inputed value.
+
+Print - The print command is the word print followed by a variable - I.E. print x. This command takes prints out what ever is stored in x.
+
+Reminder - The reminder command is the word rem followed by a string - I.E. rem This Program might save my marrige. This command doesn't excute anything and serves as away to let you comment your code.
+
+End - The end command is the word end. I.E. end. This command ends the excution of the code.
+
+Goto- The goto command is the word goto followed by a line number. I.E. goto 40. This command goes to the specified line number and begins to excute from there. 
+ 
+If - The if command is the word if followed by a varaible then a 
+
+Now that you have a program made. Here's how you run it in the termainal:
+1.) go to the simple language folder and run this from the termainal to compile the program:  g++ SLang.cpp SLang.h main.cpp -std=c++11 -o main
+
+2.) Then, when you want to run a program call this from the termanial in the simplie languge folder: ./main
+
+And now, you are a pro! I'm so proud of you (but more proud of your brother, Steve).
+
 
