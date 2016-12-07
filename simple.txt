@@ -1,7 +1,10 @@
 10 rem test "line number exists"
 20 rem
-input x
-40 input y
+30 input x
+35 input y 
+37 let y = x
+38 print y
+40 if x > 8 + 9 goto 70
 50 print x
-60 print y
+60 goto 30
 70 end
