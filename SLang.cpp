@@ -147,8 +147,8 @@ int SLang::print(){
 	}
 	if(!isDigit(deets[siIndex])){
 		if(variables.count(deets[siIndex].at(0))==0){
-			cerr<<"Trying to print a variable that has not been declared"<<endl;
-			exit(0);
+			variables.insert(pair<char,int>(var,dIndex));
+			dIndex--;		
 		}
 		mLangI[miIndex] = 1100+variables[deets[siIndex].at(0)];
         	lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
@@ -158,17 +158,6 @@ int SLang::print(){
 		cerr << "You are trying to print a literal" << endl;
 		exit(0);
 	}
-
-    if (variables.count(deets[siIndex].at(0))!=0){
-        mLangI[miIndex] = 1100+variables[deets[siIndex].at(0)];
-        lineComp.insert(pair<int,int>(lineNums[siIndex],miIndex));
-        return 0;
-    }
-    else{
-        cerr<<"can't print what doesn't exist"<<endl;
-        exit(0);
-    }
-
 }
 //Generates the sml code for the goto command
 //Returns a zero int
