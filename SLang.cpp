@@ -110,7 +110,7 @@ int SLang::next(){
         returnInt = let();
     }
     else{
-        cerr<<"You entered a bad command and now everything is messed up.  I can't help you now"<<endl;
+        cerr<<"You entered a bad command on line "<<siIndex<<" and now everything is messed up.  I can't help you now"<<endl;
         returnInt=1;
     }
     siIndex++;
@@ -232,7 +232,7 @@ int SLang::ifIt(){
     }
     return 0;
 }
-//Handels the simple command let
+//Handles the simple command let
 //Converts this into the proper sml code for that command
 //Returns an int of zero
 int SLang::let(){
@@ -323,15 +323,15 @@ void SLang::secondRun(){
     for(it_type iterator = reCheck.begin(); iterator != reCheck.end(); iterator++) {
         if (instructions[iterator->first] == "goto"){
             int goLine = stoi(deets[iterator->first]);
-	    if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
+            if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
 
-	    }
+            }
             else {
-     		cerr <<"Your goto line is to a line number that doesn't exist" << endl;
-		exit(0);
-         	}
-            mLangI[iterator->second] += lineComp[goLine];
-        }
+                cerr <<"Your goto on line "<< iterator->first<<" is to a line number that doesn't exist" << endl;
+                exit(0);
+            }
+                mLangI[iterator->second] += lineComp[goLine];
+            }
         if (instructions[iterator->first] == "if"){
             string instr = deets[iterator->first];
             int j;
@@ -344,10 +344,10 @@ void SLang::secondRun(){
             int goLine = stoi(instr.substr(j+5,instr.size()-j-5));
        	    if(find(lineNums.begin(), lineNums.end(), goLine) != lineNums.end()) {
 
- 	    } else {
-     		cerr <<"Your goto line is to a line number that doesn't exist" << endl;
-		exit(0);
-	    }
+            } else {
+                cerr <<"Your goto on line "<< iterator->first<<" is to a line number that doesn't exist" << endl;
+                exit(0);
+            }
             mLangI[iterator->second] += lineComp[goLine];
         }
     }

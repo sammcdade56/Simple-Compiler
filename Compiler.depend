@@ -7,7 +7,7 @@
 	<vector>
 	"SLang.h"
 
-1479309388 source:/home/nikki/Simple-Compiler/SLang.cpp
+1481128422 source:/home/nikki/Simple-Compiler/SLang.cpp
 	<iostream>
 	<string>
 	<vector>
@@ -18,9 +18,10 @@
 	<queue>
 	<locale>
 	<typeinfo>
+	<algorithm>
 	"SLang.h"
 
-1481084956 /home/nikki/Simple-Compiler/SLang.h
+1481128431 /home/nikki/Simple-Compiler/SLang.h
 	<string>
 	<array>
 	<vector>

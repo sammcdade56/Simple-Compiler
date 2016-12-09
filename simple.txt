@@ -1,10 +1,5 @@
-10 rem test "line number exists"
-20 rem
-30 input x
-35 input y 
-37 let y = x
-38 print y
-40 let x = 8 + 9
-50 print x
-60 goto 30
-70 end
+10 input x
+20 print x
+30 goto 35
+40 print x
+50 end
