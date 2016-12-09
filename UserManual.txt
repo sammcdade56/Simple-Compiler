@@ -27,6 +27,8 @@ Now that you have a program made. Here's how you run it in the termainal:
 
 2.) Then, when you want to run a program call this from the terminal in the simple languge folder: ./main
 
+The translater simple machine code will be in a file called sml.txt.
+
 And now, you are a pro! I'm so proud of you (but more proud of your brother, Steve).
 
 
