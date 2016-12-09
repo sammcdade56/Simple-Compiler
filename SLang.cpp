@@ -402,7 +402,7 @@ vector<char> SLang::infixRet(string infix){
 				}
 			}
 			if(!isFound){
-				cerr << "You are missing a paranthesis somewhere in your program. GoodBye." << endl;
+				cerr << "You are missing a paranthesis at line " <<  <<  " GoodBye." << endl;
 }
 		}
 
