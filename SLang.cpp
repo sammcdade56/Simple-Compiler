@@ -176,6 +176,7 @@ int SLang::gotoIt(int branchInstr,int goLine){
 int SLang::ifIt(){
     int firstV = variables[deets[siIndex].at(0)];
     int len;
+
     if(deets[siIndex].at(3)==' '){
         len = 1;
     }
@@ -183,12 +184,16 @@ int SLang::ifIt(){
         len = 2;
     }
     string op = deets[siIndex].substr(2,len);
-    int j;
-    for(unsigned int i = 4; i<deets[siIndex].size();i++){
+    int j=-1;
+    for(unsigned int i = 4; i<deets[siIndex].size()-4;i++){
         if(deets[siIndex].substr(i,4)=="goto"){
             j=i;
             break;
         }
+    }
+    if(j==-1){
+        cerr<<"Your if on line "<<siIndex<<" does not have a goto"<<endl;
+        exit(0);
     }
     int gotoLine = stoi(deets[siIndex].substr(j+5,deets[siIndex].size()-j-5));
     string notSolved = deets[siIndex].substr(3+len,j-5);
@@ -402,7 +407,7 @@ vector<char> SLang::infixRet(string infix){
 				}
 			}
 			if(!isFound){
-				cerr << "You are missing a paranthesis at line " <<  <<  " GoodBye." << endl;
+				cerr << "You are missing a parenthesis at line "<<siIndex<<" in your program. GoodBye." << endl;
 }
 		}
 
